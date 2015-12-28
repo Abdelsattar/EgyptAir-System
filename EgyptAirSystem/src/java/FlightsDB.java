@@ -46,6 +46,7 @@ public class FlightsDB extends HttpServlet {
 //            out.println("<h1>Servlet FlightsDB at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
+            getAircrftsDB();
             HttpSession session = request.getSession(true);
             if (flightIDs.size() != 0) {
                 session.setAttribute("flightIDs", flightIDs);
@@ -76,7 +77,7 @@ public class FlightsDB extends HttpServlet {
         String pass = null;
         final String url = "jdbc:mysql://localhost:3306/egyptair";
         final String user = "root"; //write your username
-        final String password = "esraa94"; // write your password
+        final String password = "M@hammed512"; // write your password
 
         try {
             Class.forName("com.mysql.jdbc.Driver");

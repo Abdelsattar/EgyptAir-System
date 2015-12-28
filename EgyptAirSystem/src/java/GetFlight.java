@@ -33,7 +33,7 @@ public class GetFlight extends HttpServlet {
 
     final String url = "jdbc:mysql://localhost:3306/egyptair";
     final String user = "root"; //write your username
-    final String password = "esraa94"; // write your password
+    final String password = "M@hammed512"; // write your password
 
     String source, destination, dept_place, cost, name, aircraftID, flightID;
     Date fdate;
