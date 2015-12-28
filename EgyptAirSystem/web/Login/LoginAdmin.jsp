@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action="validationLoginAdmin">
-            Name : <input type="text" name="nameAdmin"> <br>
+            Email : <input type="text" name="emailAdmin"> <br>
             Password : <input type="password" name="passwordAdmin"> <br>
             <input type="submit" value="Login" name="loginAdmin">
         </form>

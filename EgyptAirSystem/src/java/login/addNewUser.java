@@ -1,4 +1,4 @@
-package login;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,8 +6,20 @@ package login;
  * and open the template in the editor.
  */
 
+import aircrafts.addAirCarftDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +33,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/addNewUser"})
 public class addNewUser extends HttpServlet {
 
+    final String url = "jdbc:mysql://localhost:3306/egyptair";
+    final String user = "root"; //write your username
+    final String password = "123456"; // write your password
+    
+    String name , pass , email , credit , phone ;
+    
+    Connection Con = null;
+    Statement Stmt = null;
+    ResultSet RS = null;
+           
+    /**
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,19 +56,113 @@ public class addNewUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+     try{
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        name    = request.getParameter("name");
+        pass = request.getParameter("password");
+        email  = request.getParameter("email");
+        credit = request.getParameter("creditCard");
+        phone = request.getParameter("phone");
+        
+         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addNewUser</title>");            
+            out.println("<title>add new user</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addNewUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            out.println("<h1> Egypt Air </h1>");
+            int rawNum;
+            
+            String dbEmail = check(email);
+             
+            if(!email.equals(dbEmail)){
+                
+                
+ 
+            //    out.println("before");
+               rawNum= insert();
+              ///  out.print("after");
+               if(rawNum >0 ){
+                   
+                out.print("successfully adding user");
+               } else {
+                   
+                out.print("error");
+               }
+            } else {
+                out.print("the user is already exist");
+            }
+           out.println("</body>");
+           out.println("</html>");
+        } catch (SQLException ex) {
+            Logger.getLogger(addAirCarftDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
     }
+  
+
+    public String check(String email) throws SQLException{
+      
+        String dbEmail="";
+         try{
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
+            try {
+                Con = DriverManager.getConnection(url, user, password);
+                Stmt = Con.createStatement();
+                RS = Stmt.executeQuery("SELECT * FROM egyptair.user where email = '" + email +"';");
+                
+            if(RS.next()){
+               dbEmail =RS.getString("email");
+             }
+            Stmt.close();
+            RS.close();
+            Con.close();
+            } catch (Exception cnfe) {
+                System.err.println("Exception: " + cnfe);
+            }
+            return dbEmail;
+    }
+   
+    public int insert() throws SQLException{
+        int N = -5;
+         try{
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
+            try {
+              
+                    Con = DriverManager.getConnection(url, user, password);
+                    Stmt = Con.createStatement();       
+                  PreparedStatement pstmt =null;
+                  pstmt = Con.prepareStatement("INSERT INTO egyptair.user VALUES(?,?,?,?,?)");
+                    pstmt.setString(1, name);
+                    pstmt.setString(2, password );
+                    pstmt.setString(3, email);
+                    pstmt.setString(4, credit);
+                    pstmt.setString(5, phone);
+                    
+                    N = pstmt.executeUpdate();
+             
+                   
+                    Stmt.close();
+                    RS.close();
+                     Con.close();
+            } catch (Exception cnfe) {
+                System.err.println("Exception: " + cnfe);
+            }
+        return N;
+    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

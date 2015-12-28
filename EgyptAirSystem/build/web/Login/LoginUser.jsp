@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action="userHome.jsp">
-            Name : <input type="text" name="nameUser"> <br>
+            Email : <input type="text" name="emailUser"> <br>
             Password : <input type="password" name="passwordUser"> <br>
             <input type="submit" value="Login" name="loginUser">
         </form>
