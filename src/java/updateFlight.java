@@ -84,7 +84,6 @@ public class updateFlight extends HttpServlet {
     }
 
     public int update() throws SQLException {
-        String dbName = "";
         int N = -5;
         try {
             Class.forName("com.mysql.jdbc.Driver");

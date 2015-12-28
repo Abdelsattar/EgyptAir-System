@@ -18,14 +18,14 @@ CREATE TABLE aircraft (
 );
 
 CREATE TABLE flight (
+  flightID char(9),
+  name char(9),
   src    varchar(15) not null, 
   dest    varchar(1) not null,
-  aircraftID    char(9) not null,
   fdate    date,
   flightPlace  varchar(50),
   cost   numeric(10,2),
-  flightID char(9),
-  superssn char(9),
+  aircraftID    char(9) not null,
   primary key (flightID),
   foreign key (aircraftId) references aircraft(aircraftID)
 );
@@ -47,9 +47,8 @@ INSERT INTO user VALUES ('1','eseaa','123','m.a@y.com','123456','01222');
 CREATE TABLE admin (
   name        		 varchar(25) not null,
   password      	 varchar(25) not null,
- 
   primary key (name),
-  unique (name),
+  unique (name)
 );
 
 CREATE TABLE reserved (
@@ -61,8 +60,6 @@ CREATE TABLE reserved (
 CREATE TABLE system (
   cleintEmail      varchar(25) not null,
   confiramtion    numeric(1),
-  
- 
    primary key (cleintEmail),
    unique (cleintEmail),
    foreign key (cleintEmail) references user(email)
@@ -75,7 +72,7 @@ INSERT INTO user VALUES ('1','eseaa','123','m.a@y.com','123456','01222');
 INSERT INTO aircraft VALUES ('1210na','215','russia','KIDA','5000','300','2');
 INSERT INTO aircraft VALUES ('1220mq','215','america','mqar','4500','250','2');
 INSERT INTO aircraft VALUES ('1354aq','300','UK','aqra','4500','250','2');
-INSERT INTO aircraft VALUES ('1765kl','567','egyot','klman','5000','300','3');
+INSERT INTO aircraft VALUES ('1765kl','567','egypt','klman','5000','300','3');
 INSERT INTO aircraft VALUES ('1765ol','500','UAE','olly','5000','300','3');
 INSERT INTO aircraft VALUES ('1833pq','250','UAE','pqla','4000','200','2');
 INSERT INTO aircraft VALUES ('1836pl','112','russia','play','3000','150','1');
