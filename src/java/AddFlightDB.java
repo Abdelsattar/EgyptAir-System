@@ -55,14 +55,6 @@ public class AddFlightDB extends HttpServlet {
         year =Integer.parseInt( request.getParameter("year"));
         
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>add new Flight</title>");
-            out.println("</head>");
-            out.println("<body>");
-
-            out.println("<h1> Egypt Air </h1>");
             int rawNum;
 
             String dbName = check(name);
@@ -78,22 +70,11 @@ public class AddFlightDB extends HttpServlet {
                     out.println("before");
                     rawNum = insert();
                     out.print("after");
-                    if (rawNum > 0) {
-
-                        out.print("the flight is added successfully ");
-                    } else {
-
-                        out.print("error adding the flight");
-                    }
                 } else {
-                    out.print("the aircraft doesn't exist");
                 }
             } else {
-                out.print("the flight already exists");
             }
-            //response.sendRedirect("adminHome.jsp");
-            out.println("</body>");
-            out.println("</html>");
+            response.sendRedirect("adminHome.jsp");
         } catch (SQLException ex) {
             Logger.getLogger(AddFlightDB.class.getName()).log(Level.SEVERE, null, ex);
         }
