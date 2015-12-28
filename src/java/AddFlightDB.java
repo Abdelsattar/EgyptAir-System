@@ -170,7 +170,6 @@ public class AddFlightDB extends HttpServlet {
     }
 
     public int insert() throws SQLException {
-        String dbName = "";
         int N = -5;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -182,7 +181,7 @@ public class AddFlightDB extends HttpServlet {
             Con = DriverManager.getConnection(url, user, password);
             Stmt = Con.createStatement();
             PreparedStatement pstmt = null;
-            pstmt = Con.prepareStatement("INSERT INTO eygptair.registered VALUES(?,?,?,?,?,?,?,?)");
+            pstmt = Con.prepareStatement("INSERT INTO eygptair.flight VALUES(?,?,?,?,?,?,?,?)");
             pstmt.setString(1, flightID);
             pstmt.setString(2, name);
             pstmt.setString(3, source);
